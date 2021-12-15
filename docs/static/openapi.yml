@@ -20030,6 +20030,11 @@ definitions:
     properties:
       idValue:
         type: string
+  mkXultra.checkers.checkers.MsgPlayMoveResponse:
+    type: object
+    properties:
+      idValue:
+        type: string
   mkXultra.checkers.checkers.NextGame:
     type: object
     properties:
