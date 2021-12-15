@@ -1,0 +1,12 @@
+syntax = "proto3";
+package mkXultra.checkers.checkers;
+
+option go_package = "github.com/mkXultra/checkers/x/checkers/types";
+
+import "gogoproto/gogo.proto";
+
+
+message NextGame {
+  uint64 idValue = 1; 
+  
+}
