@@ -2,11 +2,14 @@
 import * as Long from "long";
 import { util, configure, Writer, Reader } from "protobufjs/minimal";
 export const protobufPackage = "mkXultra.checkers.checkers";
-const baseNextGame = { idValue: 0 };
+const baseNextGame = { creator: "", idValue: 0 };
 export const NextGame = {
     encode(message, writer = Writer.create()) {
+        if (message.creator !== "") {
+            writer.uint32(10).string(message.creator);
+        }
         if (message.idValue !== 0) {
-            writer.uint32(8).uint64(message.idValue);
+            writer.uint32(16).uint64(message.idValue);
         }
         return writer;
     },
@@ -18,6 +21,9 @@ export const NextGame = {
             const tag = reader.uint32();
             switch (tag >>> 3) {
                 case 1:
+                    message.creator = reader.string();
+                    break;
+                case 2:
                     message.idValue = longToNumber(reader.uint64());
                     break;
                 default:
@@ -29,6 +35,12 @@ export const NextGame = {
     },
     fromJSON(object) {
         const message = { ...baseNextGame };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = String(object.creator);
+        }
+        else {
+            message.creator = "";
+        }
         if (object.idValue !== undefined && object.idValue !== null) {
             message.idValue = Number(object.idValue);
         }
@@ -39,11 +51,18 @@ export const NextGame = {
     },
     toJSON(message) {
         const obj = {};
+        message.creator !== undefined && (obj.creator = message.creator);
         message.idValue !== undefined && (obj.idValue = message.idValue);
         return obj;
     },
     fromPartial(object) {
         const message = { ...baseNextGame };
+        if (object.creator !== undefined && object.creator !== null) {
+            message.creator = object.creator;
+        }
+        else {
+            message.creator = "";
+        }
         if (object.idValue !== undefined && object.idValue !== null) {
             message.idValue = object.idValue;
         }
