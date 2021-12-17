@@ -15,9 +15,18 @@ export interface CheckersMsgCreateGameResponse {
 
 export interface CheckersMsgPlayMoveResponse {
   idValue?: string;
+
+  /** @format int64 */
+  capturedX?: string;
+
+  /** @format int64 */
+  capturedY?: string;
+  winner?: string;
 }
 
 export interface CheckersNextGame {
+  creator?: string;
+
   /** @format uint64 */
   idValue?: string;
 }
@@ -46,6 +55,7 @@ export interface CheckersQueryGetStoredGameResponse {
 }
 
 export interface CheckersStoredGame {
+  creator?: string;
   index?: string;
   game?: string;
   turn?: string;
