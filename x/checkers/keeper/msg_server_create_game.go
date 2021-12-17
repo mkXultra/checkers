@@ -2,7 +2,7 @@ package keeper
 
 import (
 	"context"
-
+	"strconv"
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	rules "github.com/mkXultra/checkers/x/checkers/rules"
 	"github.com/mkXultra/checkers/x/checkers/types"

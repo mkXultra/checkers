@@ -1,6 +1,7 @@
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "mkXultra.checkers.checkers";
 export interface NextGame {
+    creator: string;
     idValue: number;
 }
 export declare const NextGame: {

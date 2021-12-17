@@ -1,6 +1,7 @@
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "mkXultra.checkers.checkers";
 export interface StoredGame {
+    creator: string;
     index: string;
     game: string;
     turn: string;

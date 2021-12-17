@@ -7,6 +7,6 @@ import "gogoproto/gogo.proto";
 
 
 message NextGame {
-  uint64 idValue = 1; 
-  
+  string creator = 1;
+  uint64 idValue = 2; 
 }
