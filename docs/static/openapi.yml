@@ -20049,6 +20049,8 @@ definitions:
         format: int64
       winner:
         type: string
+  mkXultra.checkers.checkers.MsgRejectGameResponse:
+    type: object
   mkXultra.checkers.checkers.NextGame:
     type: object
     properties:
