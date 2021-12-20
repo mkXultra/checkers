@@ -31,7 +31,8 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 		return nil, err
 	}
 
-	k.Keeper.SetStoredGame(ctx, storedGame)
+  k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
+  k.Keeper.SetStoredGame(ctx, storedGame)
 
 	nextGame.IdValue++
 	k.Keeper.SetNextGame(ctx, nextGame)
