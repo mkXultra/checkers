@@ -18,5 +18,6 @@ var (
 	ErrInvalidBlack     = sdkerrors.Register(ModuleName, 1102, "black address is invalid: %s")
 	ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
 	ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1109, "black player has already played")
+	ErrInvalidDeadline = sdkerrors.Register(ModuleName, 1110, "deadline cannot be parsed: %s")
 
 )
