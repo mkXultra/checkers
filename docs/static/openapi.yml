@@ -12579,6 +12579,8 @@ paths:
                       type: string
                     deadline:
                       type: string
+                    winner:
+                      type: string
               pagination:
                 type: object
                 properties:
@@ -12713,6 +12715,8 @@ paths:
                   afterId:
                     type: string
                   deadline:
+                    type: string
+                  winner:
                     type: string
         default:
           description: An unexpected error response.
@@ -20114,6 +20118,8 @@ definitions:
               type: string
             deadline:
               type: string
+            winner:
+              type: string
       pagination:
         type: object
         properties:
@@ -20181,6 +20187,8 @@ definitions:
             type: string
           deadline:
             type: string
+          winner:
+            type: string
   mkXultra.checkers.checkers.StoredGame:
     type: object
     properties:
@@ -20204,4 +20212,6 @@ definitions:
       afterId:
         type: string
       deadline:
+        type: string
+      winner:
         type: string

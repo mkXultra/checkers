@@ -7,6 +7,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/mkXultra/checkers/x/checkers/types"
+	"github.com/mkXultra/checkers/x/checkers/rules"
 )
 
 func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (*types.MsgRejectGameResponse, error) {
@@ -16,6 +17,11 @@ func (k msgServer) RejectGame(goCtx context.Context, msg *types.MsgRejectGame) (
 	if !found {
 			return nil, sdkerrors.Wrapf(types.ErrGameNotFound, "game not found %s", msg.IdValue)
 	}
+
+	if storedGame.Winner != rules.NO_PLAYER.Color {
+			return nil, types.ErrGameFinished
+	}
+
 
 	if strings.Compare(storedGame.Red, msg.Creator) == 0 {
     if 1 < storedGame.MoveCount { // Notice the use of the new field
