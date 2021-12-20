@@ -16,4 +16,7 @@ var (
 	ErrWrongMove        = sdkerrors.Register(ModuleName, 1107, "wrong move")
 	ErrInvalidRed       = sdkerrors.Register(ModuleName, 1101, "red address is invalid: %s")
 	ErrInvalidBlack     = sdkerrors.Register(ModuleName, 1102, "black address is invalid: %s")
+	ErrRedAlreadyPlayed   = sdkerrors.Register(ModuleName, 1108, "red player has already played")
+	ErrBlackAlreadyPlayed = sdkerrors.Register(ModuleName, 1109, "black player has already played")
+
 )
