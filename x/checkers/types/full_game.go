@@ -83,3 +83,7 @@ func (storedGame *StoredGame) GetPlayerAddress(color string) (address sdk.AccAdd
     address, found, err = storedGame.GetPlayerAddress(storedGame.Winner)
     return address, found, err
 }
+
+func (storedGame *StoredGame) GetWagerCoin() (wager sdk.Coin) {
+    return sdk.NewCoin(sdk.DefaultBondDenom, sdk.NewInt(int64(storedGame.Wager)))
+}
