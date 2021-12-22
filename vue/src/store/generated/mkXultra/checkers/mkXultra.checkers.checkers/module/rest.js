@@ -140,6 +140,21 @@ export class Api extends HttpClient {
          * No description
          *
          * @tags Query
+         * @name QueryCanPlayMove
+         * @summary Queries a list of canPlayMove items.
+         * @request GET:/mkXultra/checkers/checkers/canPlayMove
+         */
+        this.queryCanPlayMove = (query, params = {}) => this.request({
+            path: `/mkXultra/checkers/checkers/canPlayMove`,
+            method: "GET",
+            query: query,
+            format: "json",
+            ...params,
+        });
+        /**
+         * No description
+         *
+         * @tags Query
          * @name QueryNextGame
          * @summary Queries a nextGame by index.
          * @request GET:/mkXultra/checkers/checkers/nextGame

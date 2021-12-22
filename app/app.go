@@ -347,7 +347,7 @@ func New(
 		appCodec,
 		keys[checkersmoduletypes.StoreKey],
 		keys[checkersmoduletypes.MemStoreKey],
- 		app.BankKeeper,
+		app.BankKeeper,
 	)
 	checkersModule := checkersmodule.NewAppModule(appCodec, app.CheckersKeeper)
 

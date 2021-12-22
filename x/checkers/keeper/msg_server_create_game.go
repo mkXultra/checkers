@@ -24,9 +24,9 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 		Red:       msg.Red,
 		Black:     msg.Black,
 		MoveCount: 0,
-		Deadline: types.FormatDeadline(types.GetNextDeadline(ctx)),
+		Deadline:  types.FormatDeadline(types.GetNextDeadline(ctx)),
 		Winner:    rules.NO_PLAYER.Color,
-		Wager: msg.Wager,
+		Wager:     msg.Wager,
 	}
 
 	err := storedGame.Validate()
@@ -34,13 +34,13 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 		return nil, err
 	}
 
-  k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
-  k.Keeper.SetStoredGame(ctx, storedGame)
+	k.Keeper.SendToFifoTail(ctx, &storedGame, &nextGame)
+	k.Keeper.SetStoredGame(ctx, storedGame)
 
 	nextGame.IdValue++
 	k.Keeper.SetNextGame(ctx, nextGame)
 
-  ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
+	ctx.GasMeter().ConsumeGas(types.CreateGameGas, "Create game")
 
 	ctx.EventManager().EmitEvent(
 		sdk.NewEvent(sdk.EventTypeMessage,
@@ -50,7 +50,7 @@ func (k msgServer) CreateGame(goCtx context.Context, msg *types.MsgCreateGame) (
 			sdk.NewAttribute(types.StoredGameEventIndex, newIndex),
 			sdk.NewAttribute(types.StoredGameEventRed, msg.Red),
 			sdk.NewAttribute(types.StoredGameEventBlack, msg.Black),
- 			sdk.NewAttribute(types.StoredGameEventWager, strconv.FormatUint(msg.Wager, 10)),
+			sdk.NewAttribute(types.StoredGameEventWager, strconv.FormatUint(msg.Wager, 10)),
 		),
 	)
 
