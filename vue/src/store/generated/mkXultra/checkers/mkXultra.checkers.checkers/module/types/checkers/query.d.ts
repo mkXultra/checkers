@@ -2,6 +2,7 @@ import { Reader, Writer } from "protobufjs/minimal";
 import { NextGame } from "../checkers/next_game";
 import { StoredGame } from "../checkers/stored_game";
 import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/pagination";
+import { PlayerInfo } from "../checkers/player_info";
 export declare const protobufPackage = "mkXultra.checkers.checkers";
 export interface QueryGetNextGameRequest {
 }
@@ -32,6 +33,19 @@ export interface QueryCanPlayMoveRequest {
 export interface QueryCanPlayMoveResponse {
     possible: boolean;
     reason: string;
+}
+export interface QueryGetPlayerInfoRequest {
+    index: string;
+}
+export interface QueryGetPlayerInfoResponse {
+    playerInfo: PlayerInfo | undefined;
+}
+export interface QueryAllPlayerInfoRequest {
+    pagination: PageRequest | undefined;
+}
+export interface QueryAllPlayerInfoResponse {
+    playerInfo: PlayerInfo[];
+    pagination: PageResponse | undefined;
 }
 export declare const QueryGetNextGameRequest: {
     encode(_: QueryGetNextGameRequest, writer?: Writer): Writer;
@@ -89,6 +103,34 @@ export declare const QueryCanPlayMoveResponse: {
     toJSON(message: QueryCanPlayMoveResponse): unknown;
     fromPartial(object: DeepPartial<QueryCanPlayMoveResponse>): QueryCanPlayMoveResponse;
 };
+export declare const QueryGetPlayerInfoRequest: {
+    encode(message: QueryGetPlayerInfoRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetPlayerInfoRequest;
+    fromJSON(object: any): QueryGetPlayerInfoRequest;
+    toJSON(message: QueryGetPlayerInfoRequest): unknown;
+    fromPartial(object: DeepPartial<QueryGetPlayerInfoRequest>): QueryGetPlayerInfoRequest;
+};
+export declare const QueryGetPlayerInfoResponse: {
+    encode(message: QueryGetPlayerInfoResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetPlayerInfoResponse;
+    fromJSON(object: any): QueryGetPlayerInfoResponse;
+    toJSON(message: QueryGetPlayerInfoResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetPlayerInfoResponse>): QueryGetPlayerInfoResponse;
+};
+export declare const QueryAllPlayerInfoRequest: {
+    encode(message: QueryAllPlayerInfoRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllPlayerInfoRequest;
+    fromJSON(object: any): QueryAllPlayerInfoRequest;
+    toJSON(message: QueryAllPlayerInfoRequest): unknown;
+    fromPartial(object: DeepPartial<QueryAllPlayerInfoRequest>): QueryAllPlayerInfoRequest;
+};
+export declare const QueryAllPlayerInfoResponse: {
+    encode(message: QueryAllPlayerInfoResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryAllPlayerInfoResponse;
+    fromJSON(object: any): QueryAllPlayerInfoResponse;
+    toJSON(message: QueryAllPlayerInfoResponse): unknown;
+    fromPartial(object: DeepPartial<QueryAllPlayerInfoResponse>): QueryAllPlayerInfoResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a nextGame by index. */
@@ -99,6 +141,10 @@ export interface Query {
     StoredGameAll(request: QueryAllStoredGameRequest): Promise<QueryAllStoredGameResponse>;
     /** Queries a list of canPlayMove items. */
     CanPlayMove(request: QueryCanPlayMoveRequest): Promise<QueryCanPlayMoveResponse>;
+    /** Queries a playerInfo by index. */
+    PlayerInfo(request: QueryGetPlayerInfoRequest): Promise<QueryGetPlayerInfoResponse>;
+    /** Queries a list of playerInfo items. */
+    PlayerInfoAll(request: QueryAllPlayerInfoRequest): Promise<QueryAllPlayerInfoResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -107,6 +153,8 @@ export declare class QueryClientImpl implements Query {
     StoredGame(request: QueryGetStoredGameRequest): Promise<QueryGetStoredGameResponse>;
     StoredGameAll(request: QueryAllStoredGameRequest): Promise<QueryAllStoredGameResponse>;
     CanPlayMove(request: QueryCanPlayMoveRequest): Promise<QueryCanPlayMoveResponse>;
+    PlayerInfo(request: QueryGetPlayerInfoRequest): Promise<QueryGetPlayerInfoResponse>;
+    PlayerInfoAll(request: QueryAllPlayerInfoRequest): Promise<QueryAllPlayerInfoResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

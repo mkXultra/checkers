@@ -4,6 +4,7 @@ import * as Long from "long";
 import { NextGame } from "../checkers/next_game";
 import { StoredGame } from "../checkers/stored_game";
 import { PageRequest, PageResponse, } from "../cosmos/base/query/v1beta1/pagination";
+import { PlayerInfo } from "../checkers/player_info";
 export const protobufPackage = "mkXultra.checkers.checkers";
 const baseQueryGetNextGameRequest = {};
 export const QueryGetNextGameRequest = {
@@ -600,6 +601,268 @@ export const QueryCanPlayMoveResponse = {
         return message;
     },
 };
+const baseQueryGetPlayerInfoRequest = { index: "" };
+export const QueryGetPlayerInfoRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.index !== "") {
+            writer.uint32(10).string(message.index);
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetPlayerInfoRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.index = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetPlayerInfoRequest,
+        };
+        if (object.index !== undefined && object.index !== null) {
+            message.index = String(object.index);
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.index !== undefined && (obj.index = message.index);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetPlayerInfoRequest,
+        };
+        if (object.index !== undefined && object.index !== null) {
+            message.index = object.index;
+        }
+        else {
+            message.index = "";
+        }
+        return message;
+    },
+};
+const baseQueryGetPlayerInfoResponse = {};
+export const QueryGetPlayerInfoResponse = {
+    encode(message, writer = Writer.create()) {
+        if (message.playerInfo !== undefined) {
+            PlayerInfo.encode(message.playerInfo, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryGetPlayerInfoResponse,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.playerInfo = PlayerInfo.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryGetPlayerInfoResponse,
+        };
+        if (object.playerInfo !== undefined && object.playerInfo !== null) {
+            message.playerInfo = PlayerInfo.fromJSON(object.playerInfo);
+        }
+        else {
+            message.playerInfo = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.playerInfo !== undefined &&
+            (obj.playerInfo = message.playerInfo
+                ? PlayerInfo.toJSON(message.playerInfo)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryGetPlayerInfoResponse,
+        };
+        if (object.playerInfo !== undefined && object.playerInfo !== null) {
+            message.playerInfo = PlayerInfo.fromPartial(object.playerInfo);
+        }
+        else {
+            message.playerInfo = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllPlayerInfoRequest = {};
+export const QueryAllPlayerInfoRequest = {
+    encode(message, writer = Writer.create()) {
+        if (message.pagination !== undefined) {
+            PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllPlayerInfoRequest,
+        };
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.pagination = PageRequest.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllPlayerInfoRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageRequest.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllPlayerInfoRequest,
+        };
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageRequest.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
+const baseQueryAllPlayerInfoResponse = {};
+export const QueryAllPlayerInfoResponse = {
+    encode(message, writer = Writer.create()) {
+        for (const v of message.playerInfo) {
+            PlayerInfo.encode(v, writer.uint32(10).fork()).ldelim();
+        }
+        if (message.pagination !== undefined) {
+            PageResponse.encode(message.pagination, writer.uint32(18).fork()).ldelim();
+        }
+        return writer;
+    },
+    decode(input, length) {
+        const reader = input instanceof Uint8Array ? new Reader(input) : input;
+        let end = length === undefined ? reader.len : reader.pos + length;
+        const message = {
+            ...baseQueryAllPlayerInfoResponse,
+        };
+        message.playerInfo = [];
+        while (reader.pos < end) {
+            const tag = reader.uint32();
+            switch (tag >>> 3) {
+                case 1:
+                    message.playerInfo.push(PlayerInfo.decode(reader, reader.uint32()));
+                    break;
+                case 2:
+                    message.pagination = PageResponse.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+            }
+        }
+        return message;
+    },
+    fromJSON(object) {
+        const message = {
+            ...baseQueryAllPlayerInfoResponse,
+        };
+        message.playerInfo = [];
+        if (object.playerInfo !== undefined && object.playerInfo !== null) {
+            for (const e of object.playerInfo) {
+                message.playerInfo.push(PlayerInfo.fromJSON(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromJSON(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+    toJSON(message) {
+        const obj = {};
+        if (message.playerInfo) {
+            obj.playerInfo = message.playerInfo.map((e) => e ? PlayerInfo.toJSON(e) : undefined);
+        }
+        else {
+            obj.playerInfo = [];
+        }
+        message.pagination !== undefined &&
+            (obj.pagination = message.pagination
+                ? PageResponse.toJSON(message.pagination)
+                : undefined);
+        return obj;
+    },
+    fromPartial(object) {
+        const message = {
+            ...baseQueryAllPlayerInfoResponse,
+        };
+        message.playerInfo = [];
+        if (object.playerInfo !== undefined && object.playerInfo !== null) {
+            for (const e of object.playerInfo) {
+                message.playerInfo.push(PlayerInfo.fromPartial(e));
+            }
+        }
+        if (object.pagination !== undefined && object.pagination !== null) {
+            message.pagination = PageResponse.fromPartial(object.pagination);
+        }
+        else {
+            message.pagination = undefined;
+        }
+        return message;
+    },
+};
 export class QueryClientImpl {
     constructor(rpc) {
         this.rpc = rpc;
@@ -623,6 +886,16 @@ export class QueryClientImpl {
         const data = QueryCanPlayMoveRequest.encode(request).finish();
         const promise = this.rpc.request("mkXultra.checkers.checkers.Query", "CanPlayMove", data);
         return promise.then((data) => QueryCanPlayMoveResponse.decode(new Reader(data)));
+    }
+    PlayerInfo(request) {
+        const data = QueryGetPlayerInfoRequest.encode(request).finish();
+        const promise = this.rpc.request("mkXultra.checkers.checkers.Query", "PlayerInfo", data);
+        return promise.then((data) => QueryGetPlayerInfoResponse.decode(new Reader(data)));
+    }
+    PlayerInfoAll(request) {
+        const data = QueryAllPlayerInfoRequest.encode(request).finish();
+        const promise = this.rpc.request("mkXultra.checkers.checkers.Query", "PlayerInfoAll", data);
+        return promise.then((data) => QueryAllPlayerInfoResponse.decode(new Reader(data)));
     }
 }
 var globalThis = (() => {

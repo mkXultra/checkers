@@ -1,12 +1,14 @@
 import { NextGame } from "../checkers/next_game";
 import { StoredGame } from "../checkers/stored_game";
+import { PlayerInfo } from "../checkers/player_info";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "mkXultra.checkers.checkers";
 /** GenesisState defines the checkers module's genesis state. */
 export interface GenesisState {
     nextGame: NextGame | undefined;
-    /** this line is used by starport scaffolding # genesis/proto/state */
     storedGameList: StoredGame[];
+    /** this line is used by starport scaffolding # genesis/proto/state */
+    playerInfoList: PlayerInfo[];
 }
 export declare const GenesisState: {
     encode(message: GenesisState, writer?: Writer): Writer;
