@@ -12564,6 +12564,41 @@ paths:
           format: uint64
       tags:
         - Query
+  /mkXultra/checkers/checkers/leaderboard:
+    get:
+      summary: Queries a leaderboard by index.
+      operationId: MkXultraCheckersCheckersLeaderboard
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              Leaderboard:
+                type: object
+                properties:
+                  winners:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
   /mkXultra/checkers/checkers/nextGame:
     get:
       summary: Queries a nextGame by index.
@@ -20306,6 +20341,11 @@ definitions:
       and
 
       freezing clients
+  mkXultra.checkers.checkers.Leaderboard:
+    type: object
+    properties:
+      winners:
+        type: string
   mkXultra.checkers.checkers.MsgCreateGameResponse:
     type: object
     properties:
@@ -20464,6 +20504,14 @@ definitions:
         type: boolean
       reason:
         type: string
+  mkXultra.checkers.checkers.QueryGetLeaderboardResponse:
+    type: object
+    properties:
+      Leaderboard:
+        type: object
+        properties:
+          winners:
+            type: string
   mkXultra.checkers.checkers.QueryGetNextGameResponse:
     type: object
     properties:

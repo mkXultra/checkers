@@ -80,3 +80,7 @@ const (
 const (
 	StoredGameEventToken = "Token"
 )
+
+const (
+	LeaderboardKey= "Leaderboard-value-"
+)

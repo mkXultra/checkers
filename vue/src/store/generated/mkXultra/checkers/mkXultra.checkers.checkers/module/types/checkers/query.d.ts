@@ -3,6 +3,7 @@ import { NextGame } from "../checkers/next_game";
 import { StoredGame } from "../checkers/stored_game";
 import { PageRequest, PageResponse } from "../cosmos/base/query/v1beta1/pagination";
 import { PlayerInfo } from "../checkers/player_info";
+import { Leaderboard } from "../checkers/leaderboard";
 export declare const protobufPackage = "mkXultra.checkers.checkers";
 export interface QueryGetNextGameRequest {
 }
@@ -46,6 +47,11 @@ export interface QueryAllPlayerInfoRequest {
 export interface QueryAllPlayerInfoResponse {
     playerInfo: PlayerInfo[];
     pagination: PageResponse | undefined;
+}
+export interface QueryGetLeaderboardRequest {
+}
+export interface QueryGetLeaderboardResponse {
+    Leaderboard: Leaderboard | undefined;
 }
 export declare const QueryGetNextGameRequest: {
     encode(_: QueryGetNextGameRequest, writer?: Writer): Writer;
@@ -131,6 +137,20 @@ export declare const QueryAllPlayerInfoResponse: {
     toJSON(message: QueryAllPlayerInfoResponse): unknown;
     fromPartial(object: DeepPartial<QueryAllPlayerInfoResponse>): QueryAllPlayerInfoResponse;
 };
+export declare const QueryGetLeaderboardRequest: {
+    encode(_: QueryGetLeaderboardRequest, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetLeaderboardRequest;
+    fromJSON(_: any): QueryGetLeaderboardRequest;
+    toJSON(_: QueryGetLeaderboardRequest): unknown;
+    fromPartial(_: DeepPartial<QueryGetLeaderboardRequest>): QueryGetLeaderboardRequest;
+};
+export declare const QueryGetLeaderboardResponse: {
+    encode(message: QueryGetLeaderboardResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): QueryGetLeaderboardResponse;
+    fromJSON(object: any): QueryGetLeaderboardResponse;
+    toJSON(message: QueryGetLeaderboardResponse): unknown;
+    fromPartial(object: DeepPartial<QueryGetLeaderboardResponse>): QueryGetLeaderboardResponse;
+};
 /** Query defines the gRPC querier service. */
 export interface Query {
     /** Queries a nextGame by index. */
@@ -145,6 +165,8 @@ export interface Query {
     PlayerInfo(request: QueryGetPlayerInfoRequest): Promise<QueryGetPlayerInfoResponse>;
     /** Queries a list of playerInfo items. */
     PlayerInfoAll(request: QueryAllPlayerInfoRequest): Promise<QueryAllPlayerInfoResponse>;
+    /** Queries a leaderboard by index. */
+    Leaderboard(request: QueryGetLeaderboardRequest): Promise<QueryGetLeaderboardResponse>;
 }
 export declare class QueryClientImpl implements Query {
     private readonly rpc;
@@ -155,6 +177,7 @@ export declare class QueryClientImpl implements Query {
     CanPlayMove(request: QueryCanPlayMoveRequest): Promise<QueryCanPlayMoveResponse>;
     PlayerInfo(request: QueryGetPlayerInfoRequest): Promise<QueryGetPlayerInfoResponse>;
     PlayerInfoAll(request: QueryAllPlayerInfoRequest): Promise<QueryAllPlayerInfoResponse>;
+    Leaderboard(request: QueryGetLeaderboardRequest): Promise<QueryGetLeaderboardResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

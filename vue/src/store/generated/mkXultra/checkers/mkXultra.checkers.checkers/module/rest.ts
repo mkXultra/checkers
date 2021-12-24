@@ -9,6 +9,10 @@
  * ---------------------------------------------------------------
  */
 
+export interface CheckersLeaderboard {
+  winners?: string;
+}
+
 export interface CheckersMsgCreateGameResponse {
   idValue?: string;
 }
@@ -81,6 +85,10 @@ export interface CheckersQueryAllStoredGameResponse {
 export interface CheckersQueryCanPlayMoveResponse {
   possible?: boolean;
   reason?: string;
+}
+
+export interface CheckersQueryGetLeaderboardResponse {
+  Leaderboard?: CheckersLeaderboard;
 }
 
 export interface CheckersQueryGetNextGameResponse {
@@ -397,6 +405,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
       path: `/mkXultra/checkers/checkers/canPlayMove`,
       method: "GET",
       query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryLeaderboard
+   * @summary Queries a leaderboard by index.
+   * @request GET:/mkXultra/checkers/checkers/leaderboard
+   */
+  queryLeaderboard = (params: RequestParams = {}) =>
+    this.request<CheckersQueryGetLeaderboardResponse, RpcStatus>({
+      path: `/mkXultra/checkers/checkers/leaderboard`,
+      method: "GET",
       format: "json",
       ...params,
     });

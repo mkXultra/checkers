@@ -1,3 +1,6 @@
+export interface CheckersLeaderboard {
+    winners?: string;
+}
 export interface CheckersMsgCreateGameResponse {
     idValue?: string;
 }
@@ -55,6 +58,9 @@ export interface CheckersQueryAllStoredGameResponse {
 export interface CheckersQueryCanPlayMoveResponse {
     possible?: boolean;
     reason?: string;
+}
+export interface CheckersQueryGetLeaderboardResponse {
+    Leaderboard?: CheckersLeaderboard;
 }
 export interface CheckersQueryGetNextGameResponse {
     NextGame?: CheckersNextGame;
@@ -217,6 +223,15 @@ export declare class Api<SecurityDataType extends unknown> extends HttpClient<Se
         toX?: string;
         toY?: string;
     }, params?: RequestParams) => Promise<HttpResponse<CheckersQueryCanPlayMoveResponse, RpcStatus>>;
+    /**
+     * No description
+     *
+     * @tags Query
+     * @name QueryLeaderboard
+     * @summary Queries a leaderboard by index.
+     * @request GET:/mkXultra/checkers/checkers/leaderboard
+     */
+    queryLeaderboard: (params?: RequestParams) => Promise<HttpResponse<CheckersQueryGetLeaderboardResponse, RpcStatus>>;
     /**
      * No description
      *

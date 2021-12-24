@@ -30,7 +30,10 @@ func TestGenesis(t *testing.T) {
 				Index: "1",
 			},
 		},
-		// this line is used by starport scaffolding # genesis/test/state
+		Leaderboard: &types.Leaderboard{
+		Winners: "winners",
+},
+// this line is used by starport scaffolding # genesis/test/state
 	}
 
 	k, ctx := keepertest.CheckersKeeper(t)
@@ -43,5 +46,6 @@ func TestGenesis(t *testing.T) {
 	require.Subset(t, genesisState.StoredGameList, got.StoredGameList)
 	require.Len(t, got.PlayerInfoList, len(genesisState.PlayerInfoList))
 	require.Subset(t, genesisState.PlayerInfoList, got.PlayerInfoList)
-	// this line is used by starport scaffolding # genesis/test/assert
+	require.Equal(t, genesisState.Leaderboard, got.Leaderboard)
+// this line is used by starport scaffolding # genesis/test/assert
 }

@@ -5,8 +5,8 @@ option go_package = "github.com/mkXultra/checkers/x/checkers/types";
 
 import "gogoproto/gogo.proto";
 
-message WinningPlayer {
-    string playerAddress = 1;
-    uint64 wonCount = 2;
-    string dateAdded = 3;
+
+message Leaderboard {
+  string winners = 1; 
+  
 }

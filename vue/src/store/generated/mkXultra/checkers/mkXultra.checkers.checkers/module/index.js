@@ -3,12 +3,12 @@ import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
 import { MsgRejectGame } from "./types/checkers/tx";
-import { MsgCreateGame } from "./types/checkers/tx";
 import { MsgPlayMove } from "./types/checkers/tx";
+import { MsgCreateGame } from "./types/checkers/tx";
 const types = [
     ["/mkXultra.checkers.checkers.MsgRejectGame", MsgRejectGame],
-    ["/mkXultra.checkers.checkers.MsgCreateGame", MsgCreateGame],
     ["/mkXultra.checkers.checkers.MsgPlayMove", MsgPlayMove],
+    ["/mkXultra.checkers.checkers.MsgCreateGame", MsgCreateGame],
 ];
 export const MissingWalletError = new Error("wallet is required");
 const registry = new Registry(types);
@@ -24,8 +24,8 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
         msgRejectGame: (data) => ({ typeUrl: "/mkXultra.checkers.checkers.MsgRejectGame", value: data }),
-        msgCreateGame: (data) => ({ typeUrl: "/mkXultra.checkers.checkers.MsgCreateGame", value: data }),
         msgPlayMove: (data) => ({ typeUrl: "/mkXultra.checkers.checkers.MsgPlayMove", value: data }),
+        msgCreateGame: (data) => ({ typeUrl: "/mkXultra.checkers.checkers.MsgCreateGame", value: data }),
     };
 };
 const queryClient = async ({ addr: addr } = { addr: "http://localhost:1317" }) => {

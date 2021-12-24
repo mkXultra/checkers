@@ -18,7 +18,8 @@ func DefaultGenesis() *GenesisState {
 		},
 		StoredGameList: []StoredGame{},
 		PlayerInfoList: []PlayerInfo{},
-		// this line is used by starport scaffolding # genesis/types/default
+		Leaderboard: nil,
+// this line is used by starport scaffolding # genesis/types/default
 	}
 }
 

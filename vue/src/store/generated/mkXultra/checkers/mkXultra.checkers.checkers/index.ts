@@ -2,12 +2,14 @@ import { txClient, queryClient, MissingWalletError } from './module'
 // @ts-ignore
 import { SpVuexError } from '@starport/vuex'
 
+import { Leaderboard } from "./module/types/checkers/leaderboard"
 import { NextGame } from "./module/types/checkers/next_game"
 import { PlayerInfo } from "./module/types/checkers/player_info"
 import { StoredGame } from "./module/types/checkers/stored_game"
+import { WinningPlayer } from "./module/types/checkers/winning_player"
 
 
-export { NextGame, PlayerInfo, StoredGame };
+export { Leaderboard, NextGame, PlayerInfo, StoredGame, WinningPlayer };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -51,11 +53,14 @@ const getDefaultState = () => {
 				CanPlayMove: {},
 				PlayerInfo: {},
 				PlayerInfoAll: {},
+				Leaderboard: {},
 				
 				_Structure: {
+						Leaderboard: getStructure(Leaderboard.fromPartial({})),
 						NextGame: getStructure(NextGame.fromPartial({})),
 						PlayerInfo: getStructure(PlayerInfo.fromPartial({})),
 						StoredGame: getStructure(StoredGame.fromPartial({})),
+						WinningPlayer: getStructure(WinningPlayer.fromPartial({})),
 						
 		},
 		_Subscriptions: new Set(),
@@ -118,6 +123,12 @@ export default {
 						(<any> params).query=null
 					}
 			return state.PlayerInfoAll[JSON.stringify(params)] ?? {}
+		},
+				getLeaderboard: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.Leaderboard[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -287,6 +298,27 @@ export default {
 		},
 		
 		
+		
+		
+		 		
+		
+		
+		async QueryLeaderboard({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params: {...key}, query=null }) {
+			try {
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryLeaderboard()).data
+				
+					
+				commit('QUERY', { query: 'Leaderboard', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryLeaderboard', payload: { options: { all }, params: {...key},query }})
+				return getters['getLeaderboard']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new SpVuexError('QueryClient:QueryLeaderboard', 'API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
 		async sendMsgRejectGame({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -299,21 +331,6 @@ export default {
 					throw new SpVuexError('TxClient:MsgRejectGame:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgRejectGame:Send', 'Could not broadcast Tx: '+ e.message)
-				}
-			}
-		},
-		async sendMsgCreateGame({ rootGetters }, { value, fee = [], memo = '' }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateGame(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgCreateGame:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgCreateGame:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -332,6 +349,21 @@ export default {
 				}
 			}
 		},
+		async sendMsgCreateGame({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateGame(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateGame:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateGame:Send', 'Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		
 		async MsgRejectGame({ rootGetters }, { value }) {
 			try {
@@ -347,20 +379,6 @@ export default {
 				}
 			}
 		},
-		async MsgCreateGame({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgCreateGame(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgCreateGame:Init', 'Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new SpVuexError('TxClient:MsgCreateGame:Create', 'Could not create message: ' + e.message)
-					
-				}
-			}
-		},
 		async MsgPlayMove({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -371,6 +389,20 @@ export default {
 					throw new SpVuexError('TxClient:MsgPlayMove:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new SpVuexError('TxClient:MsgPlayMove:Create', 'Could not create message: ' + e.message)
+					
+				}
+			}
+		},
+		async MsgCreateGame({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateGame(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new SpVuexError('TxClient:MsgCreateGame:Init', 'Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new SpVuexError('TxClient:MsgCreateGame:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}
