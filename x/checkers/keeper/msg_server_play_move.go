@@ -73,6 +73,9 @@ func (k msgServer) PlayMove(goCtx context.Context, msg *types.MsgPlayMove) (*typ
 	} else {
 		k.Keeper.RemoveFromFifo(ctx, &storedGame, &nextGame)
 		k.Keeper.MustPayWinnings(ctx, &storedGame)
+		k.Keeper.MustRegisterPlayerWin(ctx, &storedGame)
+		winnerInfo, _ := k.Keeper.MustRegisterPlayerWin(ctx, &storedGame)
+    k.Keeper.MustAddToLeaderboard(ctx, winnerInfo)
 	}
 
 	// Save for the next play move

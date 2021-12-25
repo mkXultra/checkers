@@ -1,7 +1,8 @@
+import { WinningPlayer } from "../checkers/winning_player";
 import { Writer, Reader } from "protobufjs/minimal";
 export declare const protobufPackage = "mkXultra.checkers.checkers";
 export interface Leaderboard {
-    winners: string;
+    winners: WinningPlayer[];
 }
 export declare const Leaderboard: {
     encode(message: Leaderboard, writer?: Writer): Writer;

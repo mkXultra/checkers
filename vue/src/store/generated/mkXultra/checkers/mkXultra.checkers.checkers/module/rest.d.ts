@@ -1,5 +1,5 @@
 export interface CheckersLeaderboard {
-    winners?: string;
+    winners?: CheckersWinningPlayer[];
 }
 export interface CheckersMsgCreateGameResponse {
     idValue?: string;
@@ -87,6 +87,12 @@ export interface CheckersStoredGame {
     /** @format uint64 */
     wager?: string;
     token?: string;
+}
+export interface CheckersWinningPlayer {
+    playerAddress?: string;
+    /** @format uint64 */
+    wonCount?: string;
+    dateAdded?: string;
 }
 export interface ProtobufAny {
     "@type"?: string;

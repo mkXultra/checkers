@@ -12578,7 +12578,17 @@ paths:
                 type: object
                 properties:
                   winners:
-                    type: string
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        playerAddress:
+                          type: string
+                        wonCount:
+                          type: string
+                          format: uint64
+                        dateAdded:
+                          type: string
         default:
           description: An unexpected error response.
           schema:
@@ -20345,7 +20355,17 @@ definitions:
     type: object
     properties:
       winners:
-        type: string
+        type: array
+        items:
+          type: object
+          properties:
+            playerAddress:
+              type: string
+            wonCount:
+              type: string
+              format: uint64
+            dateAdded:
+              type: string
   mkXultra.checkers.checkers.MsgCreateGameResponse:
     type: object
     properties:
@@ -20511,7 +20531,17 @@ definitions:
         type: object
         properties:
           winners:
-            type: string
+            type: array
+            items:
+              type: object
+              properties:
+                playerAddress:
+                  type: string
+                wonCount:
+                  type: string
+                  format: uint64
+                dateAdded:
+                  type: string
   mkXultra.checkers.checkers.QueryGetNextGameResponse:
     type: object
     properties:
@@ -20608,4 +20638,14 @@ definitions:
         type: string
         format: uint64
       token:
+        type: string
+  mkXultra.checkers.checkers.WinningPlayer:
+    type: object
+    properties:
+      playerAddress:
+        type: string
+      wonCount:
+        type: string
+        format: uint64
+      dateAdded:
         type: string
