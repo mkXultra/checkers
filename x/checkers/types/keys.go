@@ -82,10 +82,10 @@ const (
 )
 
 const (
-	LeaderboardKey= "Leaderboard-value-"
+	LeaderboardKey = "Leaderboard-value-"
 )
 
 const (
 	LeaderboardWinnerLength = 100
-  DateAddedLayout = DeadlineLayout
+	DateAddedLayout         = DeadlineLayout
 )

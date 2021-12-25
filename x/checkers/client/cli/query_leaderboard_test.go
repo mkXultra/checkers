@@ -11,14 +11,14 @@ import (
 
 	"github.com/mkXultra/checkers/testutil/network"
 	"github.com/mkXultra/checkers/x/checkers/client/cli"
-    "github.com/mkXultra/checkers/x/checkers/types"
+	"github.com/mkXultra/checkers/x/checkers/types"
 )
 
 func networkWithLeaderboardObjects(t *testing.T) (*network.Network, types.Leaderboard) {
 	t.Helper()
 	cfg := network.DefaultConfig()
 	state := types.GenesisState{}
-    require.NoError(t, cfg.Codec.UnmarshalJSON(cfg.GenesisState[types.ModuleName], &state))
+	require.NoError(t, cfg.Codec.UnmarshalJSON(cfg.GenesisState[types.ModuleName], &state))
 
 	state.Leaderboard = &types.Leaderboard{}
 	buf, err := cfg.Codec.MarshalJSON(&state)
@@ -65,4 +65,3 @@ func TestShowLeaderboard(t *testing.T) {
 		})
 	}
 }
-

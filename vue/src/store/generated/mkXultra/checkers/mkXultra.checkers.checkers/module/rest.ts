@@ -17,6 +17,8 @@ export interface CheckersMsgCreateGameResponse {
   idValue?: string;
 }
 
+export type CheckersMsgCreatePostResponse = object;
+
 export interface CheckersMsgPlayMoveResponse {
   idValue?: string;
 

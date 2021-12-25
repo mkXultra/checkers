@@ -41,9 +41,9 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 				},
 				Leaderboard: &types.Leaderboard{
-		Winners: "winners",
-},
-// this line is used by starport scaffolding # types/genesis/validField
+					Winners: "winners",
+				},
+				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
 		},

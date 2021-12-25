@@ -31,6 +31,13 @@ export interface MsgRejectGame {
 }
 export interface MsgRejectGameResponse {
 }
+export interface MsgCreatePost {
+    creator: string;
+    title: string;
+    body: string;
+}
+export interface MsgCreatePostResponse {
+}
 export declare const MsgCreateGame: {
     encode(message: MsgCreateGame, writer?: Writer): Writer;
     decode(input: Reader | Uint8Array, length?: number): MsgCreateGame;
@@ -73,12 +80,27 @@ export declare const MsgRejectGameResponse: {
     toJSON(_: MsgRejectGameResponse): unknown;
     fromPartial(_: DeepPartial<MsgRejectGameResponse>): MsgRejectGameResponse;
 };
+export declare const MsgCreatePost: {
+    encode(message: MsgCreatePost, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreatePost;
+    fromJSON(object: any): MsgCreatePost;
+    toJSON(message: MsgCreatePost): unknown;
+    fromPartial(object: DeepPartial<MsgCreatePost>): MsgCreatePost;
+};
+export declare const MsgCreatePostResponse: {
+    encode(_: MsgCreatePostResponse, writer?: Writer): Writer;
+    decode(input: Reader | Uint8Array, length?: number): MsgCreatePostResponse;
+    fromJSON(_: any): MsgCreatePostResponse;
+    toJSON(_: MsgCreatePostResponse): unknown;
+    fromPartial(_: DeepPartial<MsgCreatePostResponse>): MsgCreatePostResponse;
+};
 /** Msg defines the Msg service. */
 export interface Msg {
     CreateGame(request: MsgCreateGame): Promise<MsgCreateGameResponse>;
     PlayMove(request: MsgPlayMove): Promise<MsgPlayMoveResponse>;
-    /** this line is used by starport scaffolding # proto/tx/rpc */
     RejectGame(request: MsgRejectGame): Promise<MsgRejectGameResponse>;
+    /** this line is used by starport scaffolding # proto/tx/rpc */
+    CreatePost(request: MsgCreatePost): Promise<MsgCreatePostResponse>;
 }
 export declare class MsgClientImpl implements Msg {
     private readonly rpc;
@@ -86,6 +108,7 @@ export declare class MsgClientImpl implements Msg {
     CreateGame(request: MsgCreateGame): Promise<MsgCreateGameResponse>;
     PlayMove(request: MsgPlayMove): Promise<MsgPlayMoveResponse>;
     RejectGame(request: MsgRejectGame): Promise<MsgRejectGameResponse>;
+    CreatePost(request: MsgCreatePost): Promise<MsgCreatePostResponse>;
 }
 interface Rpc {
     request(service: string, method: string, data: Uint8Array): Promise<Uint8Array>;

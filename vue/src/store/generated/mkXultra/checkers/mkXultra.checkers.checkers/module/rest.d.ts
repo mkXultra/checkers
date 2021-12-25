@@ -4,6 +4,7 @@ export interface CheckersLeaderboard {
 export interface CheckersMsgCreateGameResponse {
     idValue?: string;
 }
+export declare type CheckersMsgCreatePostResponse = object;
 export interface CheckersMsgPlayMoveResponse {
     idValue?: string;
     /** @format int64 */

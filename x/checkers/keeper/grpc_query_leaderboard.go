@@ -17,7 +17,7 @@ func (k Keeper) Leaderboard(c context.Context, req *types.QueryGetLeaderboardReq
 
 	val, found := k.GetLeaderboard(ctx)
 	if !found {
-	    return nil, status.Error(codes.InvalidArgument, "not found")
+		return nil, status.Error(codes.InvalidArgument, "not found")
 	}
 
 	return &types.QueryGetLeaderboardResponse{Leaderboard: val}, nil
